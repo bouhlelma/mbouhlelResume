@@ -1,0 +1,102 @@
+/*
+  Professional resume styles for GitHub Pages
+  - System theme support
+  - Elegant typography
+  - Responsive layout with sticky ToC
+  - Print-optimized PDF export
+*/
+:root{
+  --bg: #0b1020;
+  --panel: #111827;
+  --muted: #94a3b8;
+  --text: #e5e7eb;
+  --primary: #0ea5e9;
+  --primary-contrast: #04121a;
+  --border: #243042;
+  --shadow: 0 10px 25px rgba(0,0,0,.35);
+  --radius: 14px;
+}
+
+:root.light{
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --muted: #475569;
+  --text: #0f172a;
+  --primary: #0284c7;
+  --primary-contrast: #f0f9ff;
+  --border: #e2e8f0;
+  --shadow: 0 10px 25px rgba(2,8,23,.08);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: radial-gradient(1200px 800px at -10% -20%, rgba(14,165,233,.12), transparent 60%),
+              radial-gradient(1000px 700px at 120% -30%, rgba(99,102,241,.12), transparent 60%),
+              var(--bg);
+  color: var(--text);
+}
+
+.container{
+  width:min(1100px, 92vw);
+  margin-inline:auto;
+}
+
+/* Header */
+.site-header{
+  position: sticky; top:0; z-index: 20;
+  background: linear-gradient(180deg, rgba(0,0,0,.4), rgba(0,0,0,0)) , var(--panel);
+  border-bottom:1px solid var(--border);
+  backdrop-filter: saturate(1.2) blur(8px);
+}
+.header-inner{display:flex; gap:1rem; align-items:center; justify-content:space-between; padding:1.2rem 0.5rem}
+.identity .name{margin:0; font-size: clamp(1.25rem, 1.4rem + 1vw, 1.9rem)}
+.identity .title{margin:.2rem 0 0; color:var(--muted); font-weight:500; font-size:.95rem}
+.actions{display:flex; gap:.6rem; align-items:center; flex-wrap:wrap}
+.btn{border:1px solid var(--primary); background:var(--primary); color:white; padding:.5rem .85rem; border-radius:999px; cursor:pointer; box-shadow: var(--shadow); font-weight:600}
+.btn.secondary{background:transparent; color:var(--primary)}
+.btn.ghost{background:transparent; border-color:transparent; color:var(--text)}
+.btn:hover{filter:brightness(1.05)}
+
+/* Layout */
+.layout{display:grid; grid-template-columns: 260px 1fr; gap:1.2rem; padding: 1.2rem 0.5rem}
+@media (max-width: 950px){ .layout{ grid-template-columns: 1fr } .toc{ order:2 } }
+
+/* TOC */
+.toc{ position: sticky; top: 84px; align-self:start; display:flex; flex-direction:column; gap:.6rem; padding:1rem; background:var(--panel); border:1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow) }
+.toc-title{font-weight:700; letter-spacing:.02em}
+#tocNav a{ display:block; padding:.4rem .5rem; border-radius:8px; color:var(--muted); text-decoration:none; border:1px solid transparent }
+#tocNav a.active{ color: var(--primary); background: color-mix(in oklab, var(--primary) 12%, transparent); border-color: color-mix(in oklab, var(--primary) 38%, transparent) }
+#tocNav a:hover{ color: var(--text); background: color-mix(in oklab, var(--primary) 8%, transparent) }
+
+/* Content */
+.content{ min-height: 60vh }
+.prose{ padding: 1.2rem 1.4rem; background: var(--panel); border:1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow) }
+.prose h1,.prose h2,.prose h3{ scroll-margin-top: 90px }
+.prose h1{ font-size:1.6rem; margin-top:0 }
+.prose h2{ font-size:1.25rem; border-bottom:1px dashed var(--border); padding-bottom:.25rem }
+.prose h3{ font-size:1.05rem; color:var(--muted) }
+.prose p, .prose li { line-height:1.65 }
+.prose ul{ padding-left: 1.1rem }
+.prose a{ color: var(--primary) }
+
+/* Skeleton while loading */
+.skeleton{ display:grid; gap:.6rem }
+.skeleton .line{ height: 12px; background: linear-gradient(90deg, rgba(255,255,255,.05), rgba(255,255,255,.12), rgba(255,255,255,.05)); border-radius:6px; animation: pulse 1.5s infinite }
+.skeleton .w-50{width:50%} .skeleton .w-60{width:60%} .skeleton .w-70{width:70%} .skeleton .w-80{width:80%} .skeleton .w-90{width:90%}
+@keyframes pulse{ from{opacity:.6} 50%{opacity:1} to{opacity:.6} }
+
+/* Footer */
+.site-footer{ margin-top: 2rem; color: var(--muted) }
+.footer-inner{ padding: 2rem .5rem 4rem }
+
+/* Print styles */
+@media print{
+  :root{ --bg: #fff; --panel: #fff; --text: #000; --muted: #333; --border: #ddd; --shadow:none }
+  .site-header, .toc, .site-footer, #themeToggle, #printBtn{ display:none !important }
+  body{ background:white }
+  .prose{ box-shadow:none; border:none; padding:0 }
+}
